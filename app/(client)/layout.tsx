@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+      <body suppressHydrationWarning
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased text-sm bg-background`}
       >
         <header className="sticky top-0 z-20 flex items-center justify-between px-4 py-4 border-b md:px-22 border-border bg-background/80 backdrop-blur-lg">

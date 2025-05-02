@@ -25,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased text-sm bg-background`}
-      >
+      suppressHydrationWarning>
         {children}
       </body>
     </html>

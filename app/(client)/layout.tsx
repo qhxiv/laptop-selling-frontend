@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "../globals.css";
 import { Button } from "@/components/ui/button";
-import { House, Search } from "lucide-react";
+import { House, Search, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   NavigationMenu,
@@ -12,6 +13,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -36,18 +44,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${robotoSans.variable} ${robotoMono.variable} antialiased *:px-22 *:not-first:mt-4 text-sm bg-background`}
+        className={`${robotoSans.variable} ${robotoMono.variable} antialiased text-sm bg-background`}
       >
-        <header className="sticky top-0 z-20 flex items-center justify-between py-4 border-b border-border bg-background/80 backdrop-blur-lg">
+        <header className="sticky top-0 z-20 flex items-center justify-between px-4 py-4 border-b md:px-22 border-border bg-background/80 backdrop-blur-lg">
           <div className="flex">
-            <Button size="icon" variant="outline" className="mr-2">
-              <House />
-            </Button>
+            <Link href="/">
+              <Button
+                size="icon"
+                variant="outline"
+                className="hidden mr-2 cursor-pointer md:inline-flex"
+              >
+                <House />
+              </Button>
+            </Link>
 
             <Input
               type="text"
               placeholder="Nhập sản phẩm cần tìm kiếm"
-              className="rounded-r-none w-xs"
+              className="w-40 rounded-r-none md:w-xs"
             />
             <Button
               variant="outline"
@@ -58,60 +72,58 @@ export default function RootLayout({
             </Button>
           </div>
 
-          <NavigationMenu>
+          <NavigationMenu className="hidden md:block">
             <NavigationMenuList>
-              <NavigationMenuItem className="relative">
+              <NavigationMenuItem>
                 <NavigationMenuTrigger>Laptop mới</NavigationMenuTrigger>
-                <NavigationMenuContent className="absolute right-0 w-auto select-none min-w-max">
-                  <NavigationMenuLink className="w-auto">
-                    Lenovo
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Dell
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">HP</NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    ASUS
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Acer
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Case đồng bộ Dell
-                  </NavigationMenuLink>
+                <NavigationMenuContent>
+                  <NavigationMenuLink>Lenovo</NavigationMenuLink>
+                  <NavigationMenuLink>Dell</NavigationMenuLink>
+                  <NavigationMenuLink>HP</NavigationMenuLink>
+                  <NavigationMenuLink>ASUS</NavigationMenuLink>
+                  <NavigationMenuLink>Acer</NavigationMenuLink>
+                  <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              <NavigationMenuItem className="relative">
+              <NavigationMenuItem>
                 <NavigationMenuTrigger>Laptop cũ</NavigationMenuTrigger>
-                <NavigationMenuContent className="absolute right-0 w-auto select-none min-w-max">
-                  <NavigationMenuLink className="w-auto">
-                    Lenovo
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Dell
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">HP</NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    ASUS
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Acer
-                  </NavigationMenuLink>
-                  <NavigationMenuLink className="w-auto">
-                    Case đồng bộ Dell
-                  </NavigationMenuLink>
+                <NavigationMenuContent>
+                  <NavigationMenuLink>Lenovo</NavigationMenuLink>
+                  <NavigationMenuLink>Dell</NavigationMenuLink>
+                  <NavigationMenuLink>HP</NavigationMenuLink>
+                  <NavigationMenuLink>ASUS</NavigationMenuLink>
+                  <NavigationMenuLink>Acer</NavigationMenuLink>
+                  <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+
+          <Button className="md:hidden" size="icon" variant="outline">
+            <Menu />
+          </Button>
         </header>
 
         {children}
 
-        <footer className="py-6 mt-4 border-t border-border">
+        <footer className="px-4 py-6 mt-4 border-t md:px-22 border-border">
           this is the footer
         </footer>
+
+        {/* Testing area */}
+        {/* <div className="pl-8">
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div> */}
       </body>
     </html>
   );

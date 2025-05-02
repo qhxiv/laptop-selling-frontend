@@ -10,7 +10,7 @@ import {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Breadcrumb>
+      <Breadcrumb className="px-4 py-4 md:px-22">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -25,6 +25,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
+      {/* Products filter */}
 
       {children}
     </>

@@ -1,12 +1,10 @@
-import Image from "next/image";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Pagination,
   PaginationContent,
@@ -16,8 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import ProductCard from "@/components/ui/client/product-card";
 
 export default async function Page({
   params,
@@ -29,55 +26,67 @@ export default async function Page({
 
   return (
     <>
-      <div>This is the filter</div>
+      <div className="flex items-center px-4 md:px-22 gap-x-2">
+        <p>Bộ lọc</p>
 
-      <div className="grid grid-cols-6 gap-4">
+        <Select>
+          <SelectTrigger className="min-w-[100px]">
+            <SelectValue placeholder="Khoảng giá" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Dưới 5 triệu</SelectItem>
+            <SelectItem value="2">5 triệu - dưới 10 triệu</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger className="min-w-[100px]">
+            <SelectValue placeholder="Hãng sản xuất" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Dưới 5 triệu</SelectItem>
+            <SelectItem value="2">5 triệu - dưới 10 triệu</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger className="min-w-[100px]">
+            <SelectValue placeholder="CPU" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Dưới 5 triệu</SelectItem>
+            <SelectItem value="2">5 triệu - dưới 10 triệu</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger className="min-w-[100px]">
+            <SelectValue placeholder="RAM" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Dưới 5 triệu</SelectItem>
+            <SelectItem value="2">5 triệu - dưới 10 triệu</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="grid grid-cols-6 gap-4 px-4 mt-4 md:px-22">
         {arr12.map((num, index) => (
-          <Card
+          <ProductCard
             key={index}
-            className="py-4 transition-colors rounded-sm hover:border hover:border-primary"
-          >
-            <CardHeader className="px-4">
-              <div className="relative h-[100px]">
-                <Image
-                  src="/image1.jpg"
-                  alt="silly"
-                  fill={true}
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-
-              <CardTitle>Lenovo Thinkpad T14S Gen 3 (2022)</CardTitle>
-              <CardDescription>
-                Core i5-1235U / Core i5-1240P. Nhiều option cấu hình
-              </CardDescription>
-            </CardHeader>
-
-            <CardContent className="px-4">
-              <p>
-                <span className="font-bold">Bảo hành:</span> 12 tháng
-              </p>
-
-              <p>
-                <span className="font-bold">Kho hàng:</span> sẵn sàng
-              </p>
-            </CardContent>
-
-            <CardFooter className="flex justify-between px-4">
-              <div>
-                <h1 className="font-bold">9.000.000 $</h1>
-                <p className="line-through">1.000.000 $</p>
-              </div>
-
-              <Button size="icon" variant="outline" className="cursor-pointer">
-                <ShoppingCart />
-              </Button>
-            </CardFooter>
-          </Card>
+            src="/image1.jpg"
+            title="Lenovo Thinkpad T14S Gen 3 (2022)"
+            description="Core i5-1235U / Core i5-1240P. Nhiều option cấu hình"
+            warranty="12 tháng"
+            available={true}
+            originalPrice={1000000}
+            discountedPrice={9000000}
+            link="/amogus"
+          />
         ))}
       </div>
 
-      <Pagination className="">
+      <Pagination className="px-4 mt-4 md:px-22">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious href="#" />

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Roboto, Roboto_Mono } from "next/font/google";
-import "../globals.css";
+import Link from "next/link";
+
+import { House, Menu, Search } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { House, Search, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   NavigationMenu,
@@ -13,13 +14,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
+import "../globals.css";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -44,15 +40,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${robotoSans.variable} ${robotoMono.variable} antialiased text-sm bg-background`}
+        className={`${robotoSans.variable} ${robotoMono.variable} bg-accent flex min-h-screen flex-col gap-y-4 text-sm antialiased`}
       >
-        <header className="sticky top-0 z-20 flex items-center justify-between px-4 py-4 border-b md:px-22 border-border bg-background/80 backdrop-blur-lg">
+        <header className="border-border bg-background/80 sticky top-0 z-20 flex items-center justify-between border-b px-4 py-4 backdrop-blur-lg md:px-22">
           <div className="flex">
             <Link href="/">
               <Button
                 size="icon"
                 variant="outline"
-                className="hidden mr-2 cursor-pointer md:inline-flex"
+                className="mr-2 hidden cursor-pointer md:inline-flex"
               >
                 <House />
               </Button>
@@ -66,7 +62,7 @@ export default function RootLayout({
             <Button
               variant="outline"
               size="icon"
-              className="border-l-0 rounded-l-none"
+              className="rounded-l-none border-l-0"
             >
               <Search />
             </Button>
@@ -105,25 +101,13 @@ export default function RootLayout({
           </Button>
         </header>
 
-        {children}
+        <main className="flex grow flex-col gap-y-4 px-4 md:px-22">
+          {children}
+        </main>
 
-        <footer className="px-4 py-6 mt-4 border-t md:px-22 border-border">
+        <footer className="border-border bg-background border-t px-4 py-6 md:px-22">
           this is the footer
         </footer>
-
-        {/* Testing area */}
-        {/* <div className="pl-8">
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
-        </div> */}
       </body>
     </html>
   );

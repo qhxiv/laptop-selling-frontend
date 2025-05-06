@@ -1,10 +1,12 @@
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import ProductCard from "@/components/ui/client/product-card";
 import {
   Pagination,
   PaginationContent,
@@ -14,19 +16,37 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import ProductCard from "@/components/ui/client/product-card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ categoryId: string }>;
 }) {
-  const { category } = await params;
+  const { categoryId } = await params;
   const arr12 = [1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 1, 1];
 
   return (
     <>
-      <div className="flex items-center px-4 md:px-22 gap-x-2">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{categoryId}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      <div className="bg-background border-border flex items-center gap-x-2 rounded-md border p-2">
         <p>Bộ lọc</p>
 
         <Select>
@@ -70,7 +90,7 @@ export default async function Page({
         </Select>
       </div>
 
-      <div className="grid grid-cols-6 gap-4 px-4 mt-4 md:px-22">
+      <div className="grid grid-cols-6 gap-4">
         {arr12.map((num, index) => (
           <ProductCard
             key={index}
@@ -81,12 +101,12 @@ export default async function Page({
             available={true}
             originalPrice={1000000}
             discountedPrice={9000000}
-            link="/amogus"
+            productId="abc"
           />
         ))}
       </div>
 
-      <Pagination className="px-4 mt-4 md:px-22">
+      <Pagination className="mt-4">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious href="#" />

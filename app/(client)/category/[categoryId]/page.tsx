@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import ProductCard from "@/components/ui/client/product-card";
+import MiniProductCard from "@/components/ui/client/mini-product-card";
 import {
   Pagination,
   PaginationContent,
@@ -92,7 +92,7 @@ export default async function Page({
 
       <div className="grid grid-cols-6 gap-4">
         {arr12.map((num, index) => (
-          <ProductCard
+          <MiniProductCard
             key={index}
             src="/image1.jpg"
             title="Lenovo Thinkpad T14S Gen 3 (2022)"

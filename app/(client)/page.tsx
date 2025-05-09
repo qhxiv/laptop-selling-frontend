@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/ui/client/product-card";
+import MiniProductCard from "@/components/ui/client/mini-product-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image1.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"
@@ -64,7 +64,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image2.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"
@@ -83,7 +83,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image3.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"

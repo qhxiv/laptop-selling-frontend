@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function ProductCard({
+export default function MiniProductCard({
   src,
   title,
   description,

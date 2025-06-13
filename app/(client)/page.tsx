@@ -35,9 +35,9 @@ export default function Home() {
                   </TabsList>
                 </div>
 
-                <Link href="/category/new-laptop">
-                  <Button className="cursor-pointer">Xem tất cả</Button>
-                </Link>
+                <Button className="cursor-pointer" asChild>
+                  <Link href="/category/new-laptop">Xem tất cả</Link>
+                </Button>
               </div>
 
               <TabsContent

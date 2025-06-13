@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import Link from "next/link";
 
+import { ShoppingCart } from "lucide-react";
 import { House, Menu, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -44,15 +45,16 @@ export default function RootLayout({
       >
         <header className="border-border bg-background top-0 z-20 flex items-center justify-between border-b px-4 py-4 md:px-22">
           <div className="flex">
-            <Link href="/">
-              <Button
-                size="icon"
-                variant="outline"
-                className="mr-2 hidden cursor-pointer md:inline-flex"
-              >
+            <Button
+              size="icon"
+              variant="outline"
+              className="mr-2 hidden md:inline-flex"
+              asChild
+            >
+              <Link href="/">
                 <House />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
 
             <Input
               type="text"
@@ -68,33 +70,49 @@ export default function RootLayout({
             </Button>
           </div>
 
-          <NavigationMenu className="hidden md:block">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Laptop mới</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <NavigationMenuLink>Lenovo</NavigationMenuLink>
-                  <NavigationMenuLink>Dell</NavigationMenuLink>
-                  <NavigationMenuLink>HP</NavigationMenuLink>
-                  <NavigationMenuLink>ASUS</NavigationMenuLink>
-                  <NavigationMenuLink>Acer</NavigationMenuLink>
-                  <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+          <div className="flex gap-x-2">
+            <NavigationMenu className="hidden md:block">
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Button asChild variant="outline">
+                    <NavigationMenuTrigger>Laptop mới</NavigationMenuTrigger>
+                  </Button>
+                  <NavigationMenuContent>
+                    <NavigationMenuLink>Lenovo</NavigationMenuLink>
+                    <NavigationMenuLink>Dell</NavigationMenuLink>
+                    <NavigationMenuLink>HP</NavigationMenuLink>
+                    <NavigationMenuLink>ASUS</NavigationMenuLink>
+                    <NavigationMenuLink>Acer</NavigationMenuLink>
+                    <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Laptop cũ</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <NavigationMenuLink>Lenovo</NavigationMenuLink>
-                  <NavigationMenuLink>Dell</NavigationMenuLink>
-                  <NavigationMenuLink>HP</NavigationMenuLink>
-                  <NavigationMenuLink>ASUS</NavigationMenuLink>
-                  <NavigationMenuLink>Acer</NavigationMenuLink>
-                  <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                <NavigationMenuItem>
+                  <Button asChild variant="outline">
+                    <NavigationMenuTrigger>Laptop cũ</NavigationMenuTrigger>
+                  </Button>
+                  <NavigationMenuContent>
+                    <NavigationMenuLink>Lenovo</NavigationMenuLink>
+                    <NavigationMenuLink>Dell</NavigationMenuLink>
+                    <NavigationMenuLink>HP</NavigationMenuLink>
+                    <NavigationMenuLink>ASUS</NavigationMenuLink>
+                    <NavigationMenuLink>Acer</NavigationMenuLink>
+                    <NavigationMenuLink>Case đồng bộ Dell</NavigationMenuLink>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            <Button asChild size="icon" variant="outline">
+              <Link href="/cart" className="relative">
+                <ShoppingCart />
+
+                <div className="bg-primary text-primary-foreground absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 text-xs">
+                  4
+                </div>
+              </Link>
+            </Button>
+          </div>
 
           <Button className="md:hidden" size="icon" variant="outline">
             <Menu />
@@ -106,7 +124,7 @@ export default function RootLayout({
         </main>
 
         <footer className="border-border bg-background mt-4 border-t px-4 py-6 md:px-22">
-          © 2025 Shopee. Tất cả các quyền được bảo lưu.
+          © 2025 qhxiv. Tất cả các quyền được bảo lưu.
         </footer>
       </body>
     </html>

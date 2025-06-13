@@ -1,6 +1,10 @@
+import { numberToVND } from "@/lib/utils";
+
 import Image from "next/image";
 import Link from "next/link";
+
 import { ShoppingCart } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,10 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { link } from "fs";
 
-export default function ProductCard({
-  key,
+export default function MiniProductCard({
   src,
   title,
   description,
@@ -21,9 +23,8 @@ export default function ProductCard({
   available,
   originalPrice,
   discountedPrice,
-  link,
+  productId,
 }: {
-  key?: React.Key;
   src: string;
   title: string;
   description: string;
@@ -31,10 +32,10 @@ export default function ProductCard({
   available: boolean;
   originalPrice: number;
   discountedPrice?: number;
-  link: string;
+  productId: string;
 }) {
   return (
-    <Card className="py-4 transition-colors rounded-sm hover:border hover:border-primary">
+    <Card className="hover:border-primary rounded-sm py-4 transition-colors hover:border">
       <CardHeader className="px-4">
         <div className="relative h-[100px]">
           <Image src={src} alt={title} fill style={{ objectFit: "cover" }} />
@@ -42,8 +43,8 @@ export default function ProductCard({
 
         <CardTitle>
           <Link
-            href={link}
-            className=" text-primary underline-offset-4 hover:underline"
+            href={`/product/${productId}`}
+            className="text-primary underline-offset-4 hover:underline"
           >
             <h1 className="leading-snug">{title}</h1>
           </Link>
@@ -66,20 +67,12 @@ export default function ProductCard({
         <div>
           <h1 className="text-lg font-bold">
             {available
-              ? new Intl.NumberFormat("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                }).format(discountedPrice ? discountedPrice : originalPrice)
+              ? numberToVND(discountedPrice ? discountedPrice : originalPrice)
               : "Liên hệ"}
           </h1>
 
           {available && discountedPrice && (
-            <p className="line-through">
-              {new Intl.NumberFormat("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              }).format(originalPrice)}
-            </p>
+            <p className="line-through">{numberToVND(originalPrice)}</p>
           )}
         </div>
 

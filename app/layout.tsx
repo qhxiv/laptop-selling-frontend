@@ -5,6 +5,7 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { Inter } from "next/font/google"
 import { Providers } from "./providers"
+import ShadCNLaptopChatbot from "@/components/LaptopChatbotWidget";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
       suppressHydrationWarning>
         <Providers>
           {children}
+          <ShadCNLaptopChatbot />
         </Providers>
       </body>
     </html>

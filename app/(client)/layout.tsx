@@ -41,9 +41,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning
         className={`${robotoSans.variable} ${robotoMono.variable} bg-accent flex min-h-screen flex-col text-sm antialiased`}
       >
-        <header className="border-border bg-background top-0 z-20 flex items-center justify-between border-b px-4 py-4 md:px-22">
+        <header className="border-border bg-background md:px-22 top-0 z-20 flex items-center justify-between border-b px-4 py-4">
           <div className="flex">
             <Button
               size="icon"
@@ -59,7 +60,7 @@ export default function RootLayout({
             <Input
               type="text"
               placeholder="Nhập sản phẩm cần tìm kiếm"
-              className="w-40 rounded-r-none md:w-xs"
+              className="md:w-xs w-40 rounded-r-none"
             />
             <Button
               variant="outline"
@@ -107,7 +108,7 @@ export default function RootLayout({
               <Link href="/cart" className="relative">
                 <ShoppingCart />
 
-                <div className="bg-primary text-primary-foreground absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full px-2.5 py-1 text-xs">
+                <div className="bg-primary text-primary-foreground absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 rounded-full px-2.5 py-1 text-xs">
                   4
                 </div>
               </Link>
@@ -119,11 +120,11 @@ export default function RootLayout({
           </Button>
         </header>
 
-        <main className="mt-4 flex grow flex-col gap-y-4 px-4 md:px-22">
+        <main className="md:px-22 mt-4 flex grow flex-col gap-y-4 px-4">
           {children}
         </main>
 
-        <footer className="border-border bg-background mt-4 border-t px-4 py-6 md:px-22">
+        <footer className="border-border bg-background md:px-22 mt-4 border-t px-4 py-6">
           © 2025 qhxiv. Tất cả các quyền được bảo lưu.
         </footer>
       </body>

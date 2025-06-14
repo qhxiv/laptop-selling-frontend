@@ -1,23 +1,24 @@
-import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/ui/client/product-card";
-
 import React from "react";
+
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import MiniProductCard from "@/components/ui/client/mini-product-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   const arr12 = [1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 1, 1];
   const arr3 = [1, 1, 1];
 
   return (
-    <>
+    <div className="flex flex-col gap-y-8">
       {arr3.map((num, index) => (
-        <section className="px-4 mt-8 md:px-22" key={index}>
+        <section key={index}>
           <div className="flex justify-between">
             <Tabs defaultValue="graphic_laptop" className="w-full">
-              <div className="flex flex-row justify-between border-b border-primary">
+              <div className="border-primary flex flex-row justify-between border-b">
                 <div>
-                  <div className="inline-block h-auto px-4 pt-2 pb-3 mr-2 text-sm font-medium rounded-b-none bg-primary text-primary-foreground rounded-t-md">
+                  <div className="bg-primary text-primary-foreground mr-2 inline-block h-auto rounded-t-md rounded-b-none px-4 pt-2 pb-3 text-sm font-medium">
                     Laptop mới
                   </div>
 
@@ -34,9 +35,9 @@ export default function Home() {
                   </TabsList>
                 </div>
 
-                <Link href="/new-laptop">
-                  <Button className="cursor-pointer">Xem tất cả</Button>
-                </Link>
+                <Button className="cursor-pointer" asChild>
+                  <Link href="/category/new-laptop">Xem tất cả</Link>
+                </Button>
               </div>
 
               <TabsContent
@@ -44,7 +45,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image1.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"
@@ -53,7 +54,7 @@ export default function Home() {
                     available={true}
                     originalPrice={1000000}
                     discountedPrice={9000000}
-                    link="/new-laptop/amogus"
+                    productId="abc"
                   />
                 ))}
               </TabsContent>
@@ -63,7 +64,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image2.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"
@@ -72,7 +73,7 @@ export default function Home() {
                     available={true}
                     originalPrice={1000000}
                     discountedPrice={9000000}
-                    link="/new-laptop/amogus"
+                    productId="abc"
                   />
                 ))}
               </TabsContent>
@@ -82,7 +83,7 @@ export default function Home() {
                 className="grid grid-cols-6 gap-4"
               >
                 {arr12.map((num, index) => (
-                  <ProductCard
+                  <MiniProductCard
                     key={index}
                     src="/image3.jpg"
                     title="Lenovo Thinkpad T14S Gen 3 (2022)"
@@ -91,7 +92,7 @@ export default function Home() {
                     available={true}
                     originalPrice={1000000}
                     discountedPrice={9000000}
-                    link="/new-laptop/amogus"
+                    productId="abc"
                   />
                 ))}
               </TabsContent>
@@ -99,6 +100,6 @@ export default function Home() {
           </div>
         </section>
       ))}
-    </>
+    </div>
   );
 }

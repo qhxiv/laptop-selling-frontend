@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider"
 import { Inter } from "next/font/google"
 import { Providers } from "./providers"
 import ShadCNLaptopChatbot from "@/components/LaptopChatbotWidget";
+import { Toaster } from "sonner"
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -20,8 +21,8 @@ const robotoMono = Roboto_Mono({
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Electronics Store Admin",
-  description: "Admin dashboard for electronics store",
+  title: "Laptop Store",
+  description: "Your one-stop shop for laptops",
 };
 
 export default function RootLayout({
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <ShadCNLaptopChatbot />
+          <Toaster />
         </Providers>
       </body>
     </html>

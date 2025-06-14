@@ -3,9 +3,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
 
+interface Message {
+  id: number;
+  text: string;
+  sender: 'user' | 'bot';
+  timestamp: Date;
+}
+
+interface ChatbotResponse {
+  response: {
+    message: string;
+    context?: Array<{
+      role: 'user' | 'model';
+      content: string;
+    }>;
+  };
+}
+
 const ShadCNLaptopChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       text: "Xin chào! Tôi là AI tư vấn laptop của cửa hàng. Hãy cho tôi biết bạn cần laptop để làm gì nhé? 🖥️",
@@ -15,7 +32,7 @@ const ShadCNLaptopChatbot = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,7 +42,7 @@ const ShadCNLaptopChatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessageToAPI = async (message) => {
+  const sendMessageToAPI = async (message: string): Promise<string> => {
     try {
       const response = await fetch('/api/chatbot', {
         method: 'POST',
@@ -35,7 +52,7 @@ const ShadCNLaptopChatbot = () => {
         body: JSON.stringify({
           message: message,
           context: messages.slice(-5).map(msg => ({
-            role: msg.sender === 'bot' ? 'assistant' : 'user',
+            role: msg.sender === 'bot' ? 'model' : 'user',
             content: msg.text
           }))
         }),
@@ -45,8 +62,11 @@ const ShadCNLaptopChatbot = () => {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
-      return data.response;
+      const data = await response.json() as ChatbotResponse;
+      // Extract the message text from the response
+      const messageText = data.response?.message || "Xin lỗi, tôi không hiểu câu hỏi của bạn. Vui lòng thử lại.";
+
+      return messageText;
     } catch (error) {
       console.error('Error sending message:', error);
       return "Xin lỗi, tôi đang gặp sự cố kỹ thuật. Vui lòng thử lại sau ít phút.";
@@ -56,7 +76,7 @@ const ShadCNLaptopChatbot = () => {
   const handleSendMessage = async () => {
     if (!inputText.trim() || isLoading) return;
 
-    const userMessage = {
+    const userMessage: Message = {
       id: Date.now(),
       text: inputText,
       sender: 'user',
@@ -69,7 +89,7 @@ const ShadCNLaptopChatbot = () => {
 
     const botResponse = await sendMessageToAPI(inputText);
 
-    const botMessage = {
+    const botMessage: Message = {
       id: Date.now() + 1,
       text: botResponse,
       sender: 'bot',
@@ -80,14 +100,14 @@ const ShadCNLaptopChatbot = () => {
     setIsLoading(false);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
   };
 
-  const formatTime = (date) => {
+  const formatTime = (date: Date): string => {
     return date.toLocaleTimeString('vi-VN', { 
       hour: '2-digit', 
       minute: '2-digit' 

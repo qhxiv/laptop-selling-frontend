@@ -1,81 +1,154 @@
 "use client"
 
-import { useState } from "react"
-import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { signIn, useSession } from "next-auth/react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
+import { Loader2 } from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
-  const [error, setError] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  const { data: session, status, update: updateSession } = useSession()
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
+  // Show error message if any
+  const error = searchParams.get("error")
+  if (error) {
+    toast.error(error)
+  }
+
+  // Effect to handle redirection after successful login
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role) {
+      console.log("Login - Session:", session)
+      console.log("Login - Role:", session.user.role)
+      
+      if (session.user.role.toLowerCase() === "admin") {
+        router.push("/admin")
+      } else {
+        router.push("/")
+      }
+    }
+  }, [status, session, router])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
 
     try {
-      const res = await signIn("credentials", {
-        email: formData.get("email"),
-        password: formData.get("password"),
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
         redirect: false,
       })
 
-      if (res?.error) {
-        setError("Invalid credentials")
+      if (result?.error) {
+        toast.error(result.error)
         return
       }
 
-      router.push("/admin")
-      router.refresh()
+      if (!result?.ok) {
+        toast.error("Login failed")
+        return
+      }
+
+      // Show success message
+      toast.success("Login successful")
+
+      // Force session update
+      await updateSession()
+      
     } catch (error) {
-      setError("Something went wrong")
+      toast.error(error instanceof Error ? error.message : "An error occurred during login")
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Admin Login</CardTitle>
-          <CardDescription>
-            Enter your credentials to access the admin panel
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Or{" "}
+            <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+              create a new account
+            </a>
+          </p>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm space-y-4">
+            <div>
+              <Label htmlFor="email">Email address</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="admin@example.com"
+                autoComplete="email"
                 required
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className="mt-1"
+                placeholder="Enter your email"
               />
             </div>
-            <div className="space-y-2">
+            <div>
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 name="password"
                 type="password"
+                autoComplete="current-password"
                 required
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                className="mt-1"
+                placeholder="Enter your password"
               />
             </div>
-            {error && (
-              <div className="text-sm text-red-500">
-                {error}
-              </div>
-            )}
-            <Button type="submit" className="w-full">
-              Sign In
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <a href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                Forgot your password?
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign in"
+              )}
             </Button>
-          </form>
-        </CardContent>
-      </Card>
+          </div>
+        </form>
+      </div>
     </div>
   )
 } 

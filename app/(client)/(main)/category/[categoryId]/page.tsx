@@ -30,18 +30,23 @@ export default async function Page({
   params: Promise<{ categoryId: string }>;
 }) {
   const { categoryId } = await params;
-  const arr12 = [1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 1, 1];
+  const categoryData = await fetch(
+    `http://localhost:3000/categories/${categoryId}`,
+  );
+  const category = await categoryData.json();
+
+  const arr12 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
     <>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{categoryId}</BreadcrumbPage>
+            <BreadcrumbPage>{category.name}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -94,7 +99,7 @@ export default async function Page({
         {arr12.map((num, index) => (
           <MiniProductCard
             key={index}
-            src="/image1.jpg"
+            src="/laptop1.jpg"
             title="Lenovo Thinkpad T14S Gen 3 (2022)"
             description="Core i5-1235U / Core i5-1240P. Nhiều option cấu hình"
             warranty="12 tháng"

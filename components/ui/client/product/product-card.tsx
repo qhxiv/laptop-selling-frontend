@@ -18,13 +18,11 @@ export default function ProductCard({
 }) {
   const arr5 = [1, 2, 3, 4, 5];
   const productImages = [
-    "/image1.jpg",
-    "/image2.jpg",
-    "/image3.jpg",
-    "/image4.jpg",
-    "/image5.jpg",
-    "/image6.jpg",
-    "/image7.jpg",
+    "/laptop1.jpg",
+    "/laptop2.jpg",
+    "/laptop3.jpg",
+    "/ram.jpg",
+    "/keyboard.jpg",
   ];
 
   const [chosenSpec, setChosenSpec] = useState(0);

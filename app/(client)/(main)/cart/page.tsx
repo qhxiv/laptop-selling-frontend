@@ -40,7 +40,7 @@ export default function Page() {
           <div className="col-span-4 flex">
             <div className="relative aspect-square h-[80px]">
               <Image
-                src="/image1.jpg"
+                src="/laptop1.jpg"
                 alt="silly ahh"
                 fill
                 className="object-cover"
